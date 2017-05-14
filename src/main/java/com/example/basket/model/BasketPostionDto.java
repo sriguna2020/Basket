@@ -1,20 +1,11 @@
 package com.example.basket.model;
 
-import com.example.basket.entity.BasketPosition;
-
-import javax.persistence.*;
-import java.util.List;
-import java.util.Map;
-
 public class BasketPostionDto {
     Long id;
-    Long userId;
-    List<BasketPosition> basketPositions;
 
-    public BasketPostionDto(Long userId, List<BasketPostionDto> basketPositions) {
-        this.userId = userId;
-        //this.basketPositions = basketPositions;
-    }
+    Long basketId;
+    Long productId;
+    Integer quantity;
 
     public BasketPostionDto() {
     }
@@ -27,19 +18,27 @@ public class BasketPostionDto {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getBasketId() {
+        return basketId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setBasketId(Long basketId) {
+        this.basketId = basketId;
     }
 
-//    public Map<Long, Integer> getBasketPositions() {
-//        return basketPositions;
-//    }
-//
-//    public void setBasketPositions(Map<Long, Integer> basketPositions) {
-//        this.basketPositions = basketPositions;
-//    }
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 }

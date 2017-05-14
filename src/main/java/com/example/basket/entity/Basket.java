@@ -33,7 +33,7 @@ public class Basket {
         return positions;
     }
 
-    public void setBasketPositions(List<Product> products) {
+    public void setBasketPositions(List<BasketPosition> products) {
         this.positions = positions;
     }
 

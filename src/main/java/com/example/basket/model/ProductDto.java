@@ -1,22 +1,20 @@
-package com.example.basket.entity;
+package com.example.basket.model;
 
-import javax.persistence.*;
+import com.example.basket.entity.BasketPosition;
 
-@Entity
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id",unique=true, nullable = false)
+import java.util.List;
+
+public class ProductDto {
     private Long id;
-
     private String name;
 
     // todo: bigdecimal
     private Long price;
 
-    public Product() {
-        // hibernate
+    public ProductDto(Long id, String name, Long price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
     }
 
     public Long getId() {

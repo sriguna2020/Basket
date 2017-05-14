@@ -1,19 +1,11 @@
 package com.example.basket.model;
 
-import com.example.basket.entity.BasketPosition;
-
 import java.util.List;
-import java.util.Map;
 
 public class BasketDto {
     Long id;
     Long userId;
-    List<BasketPosition> basketPositions;
-
-    public BasketDto(Long userId, List<BasketDto> basketPositions) {
-        this.userId = userId;
-        //this.basketPositions = basketPositions;
-    }
+    List<Long> basketPositionsIds;
 
     public BasketDto() {
     }
@@ -34,4 +26,11 @@ public class BasketDto {
         this.userId = userId;
     }
 
+    public List<Long> getBasketPositionsIds() {
+        return basketPositionsIds;
+    }
+
+    public void setBasketPositionsIds(List<Long> basketPositionsIds) {
+        this.basketPositionsIds = basketPositionsIds;
+    }
 }

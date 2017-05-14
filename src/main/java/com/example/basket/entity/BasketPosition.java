@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class BasketPosition {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE)
     Long id;
 
     Long basketId;
@@ -17,6 +17,14 @@ public class BasketPosition {
     Integer quantity;
 
     public BasketPosition() {}
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getBasketId() {
         return basketId;
