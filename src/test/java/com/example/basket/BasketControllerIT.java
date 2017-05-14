@@ -68,10 +68,10 @@ public class BasketControllerIT {
         final MockHttpServletResponse response = request.andReturn().getResponse();
         // then
         Assertions.assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-//        assertThat(response.getHeader("Location")).isNotEmpty().matches("https?://.*/addons/-?\\d+");
+//        assertThat(response.getHeader("Location")).isNotEmpty().matches("https?://.*/basket/-?\\d+");
     }
 
     private BasketDto createBasketDto() {
-        return new BasketDto(2L, Collections.emptyList());
+        return new BasketDto();
     }
 }

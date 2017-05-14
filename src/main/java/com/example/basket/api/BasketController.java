@@ -46,4 +46,17 @@ public class BasketController {
 
         return new ResponseEntity<>(basketMapper.map(basket), HttpStatus.OK);
     }
+
+    @ApiOperation(value = "Pobiera wartość koszyka.", response = BasketDto.class)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Zawartość koszyka została pobrana poprawnie", response = Void.class),
+            @ApiResponse(code = 400, message = "Koszyk o podanym id nie istnieje", response = Void.class) })
+    @RequestMapping(value = "/{basketId}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public ResponseEntity<Long> getBasketValue(
+            @ApiParam(name = "basketId", value = "Id koszyka") @PathVariable final Long basketId)
+            throws NotFoundException {
+
+
+        return new ResponseEntity<>(basketService.getBasketValue(basketId), HttpStatus.OK);
+    }
 }
