@@ -37,7 +37,7 @@ public class BasketServiceTest {
         Mockito.verify(basketRepository).findOne(42L);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void getBasketValue() throws Exception {
         // given
         Product product = new Product();
@@ -57,6 +57,16 @@ public class BasketServiceTest {
         // when
         BigDecimal value = basketService.getBasketValue(42L);
         // then
-        Assertions.assertThat(value).isEqualTo(797.12);
+        Assertions.assertThat(value.doubleValue()).isEqualTo(797.12);
+    }
+
+    @Test
+    public void createBasket() throws Exception {
+        // given
+        final Basket basket = Mockito.mock(Basket.class);
+        // when
+        basketService.createBasket(basket);
+        // then
+        Mockito.verify(basketRepository).save(basket);
     }
 }

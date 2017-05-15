@@ -2,7 +2,9 @@ package com.example.basket.api;
 
 import com.example.basket.entity.Basket;
 import com.example.basket.mapper.BasketMapper;
+import com.example.basket.mapper.BasketPositionMapper;
 import com.example.basket.model.BasketDto;
+import com.example.basket.model.BasketPositionDto;
 import com.example.basket.service.BasketService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +29,14 @@ public class BasketController {
 
     private BasketMapper basketMapper;
     private BasketService basketService;
+    private BasketPositionMapper basketPositionMapper;
 
     @Autowired
-    public BasketController(final BasketMapper basketMapper, final BasketService basketService) {
+    public BasketController(final BasketMapper basketMapper, final BasketService basketService,
+                            final BasketPositionMapper basketPositionMapper) {
         this.basketMapper = basketMapper;
         this.basketService = basketService;
+        this.basketPositionMapper = basketPositionMapper;
     }
 
     public BasketController() {}
@@ -61,6 +66,18 @@ public class BasketController {
             @ApiParam(name = "basketId", value = "Id koszyka") @PathVariable final Long basketId)
             throws NotFoundException {
         return new ResponseEntity<>(basketService.getBasketValue(basketId).doubleValue(), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Znajduje produkt w koszyku.", response = BasketPositionDto.class)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Operacja wykonana poprawnie", response = Void.class),
+            @ApiResponse(code = 400, message = "Koszyk o podanym id nie istnieje", response = Void.class) })
+    @RequestMapping(value = "/{basketId}/find/{phrase}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public ResponseEntity<BasketPositionDto> getBasketPosition(
+            @ApiParam(name = "basketId", value = "Fraza do wyszukania") @PathVariable final String phrase,
+            @ApiParam(name = "basketId", value = "Id koszyka") @PathVariable final Long basketId)
+            throws NotFoundException {
+        return new ResponseEntity<>(basketPositionMapper.map(basketService.findProduct(basketId, phrase)), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Zapisuje koszyk.", response = Void.class)

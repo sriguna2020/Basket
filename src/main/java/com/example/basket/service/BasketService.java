@@ -3,6 +3,7 @@ package com.example.basket.service;
 import com.example.basket.api.NotFoundException;
 import com.example.basket.entity.Basket;
 import com.example.basket.entity.BasketPosition;
+import com.example.basket.entity.Product;
 import com.example.basket.repository.BasketPositionRepository;
 import com.example.basket.repository.BasketRepository;
 import com.example.basket.repository.ProductRepository;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -59,14 +61,10 @@ public class BasketService {
     }
 
     public Basket createBasket(Basket entity) {
-        List<BasketPosition> entityBasketPositions = entity.getPositions();
-        entity.setBasketPositions(new ArrayList<>());
         final Basket basket = basketRepository.save(entity);
-        List<BasketPosition> basketPositions = new ArrayList<>();
         for (BasketPosition basketPosition : entity.getPositions()) {
             // todo - throw error if position have id
             basketPosition.setBasketId(basket.getId());
-            //BasketPosition savedBasketPosition = basketPositionRepository.save(basketPosition);
         }
         entity.getPositions().forEach(basketPosition -> basketPosition.setBasketId(basket.getId()));
         entity.getPositions().forEach(basketPosition -> basketPositionRepository.save(basketPosition));
@@ -91,5 +89,20 @@ public class BasketService {
         original.getPositions().addAll(newBasketPositions);
 
         return basketRepository.save(original);
+    }
+
+    public BasketPosition findProduct(Long basketId, String phrase) throws NotFoundException {
+        final Basket basket = basketRepository.findOne(basketId);
+        if (basket == null) {
+            throw new NotFoundException();
+        }
+        for (BasketPosition basketPosition : basket.getPositions()) {
+            Product product = productRepository.findOne(basketPosition.getProductId());
+            if (product.getName().equals(phrase)) {
+                return basketPosition;
+            }
+        }
+
+        return null;
     }
 }

@@ -1,7 +1,6 @@
 package com.example.basket;
 
 import com.example.basket.entity.Basket;
-import com.example.basket.entity.BasketPosition;
 import com.example.basket.entity.Product;
 import com.example.basket.model.BasketDto;
 import com.example.basket.model.BasketPositionDto;
@@ -10,7 +9,6 @@ import com.example.basket.repository.ProductRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +34,6 @@ import java.util.Collections;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = BasketApplication.class)
@@ -132,6 +129,22 @@ public class BasketControllerIT {
         // then
         Assertions.assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         Assertions.assertThat(response.getContentAsString()).isEqualToIgnoringCase("19799.76");
+    }
+
+    @Test
+    public void findProductInBasket() throws Exception {
+        // given
+        final BasketDto basketDto = createBasketDtoWithPositions();
+        final ResultActions request = mockMvc.perform(fileUpload("/basket").file(createDtoUpload(basketDto)));
+        final String locationString = request.andReturn().getResponse().getHeader("Location");
+        Long locationId = Long.valueOf(locationString.substring(locationString.lastIndexOf('/') + 1));
+        // when
+        final ResultActions request1 = mockMvc.perform(get("/basket/" + locationId + "/find/" + "Burbulator"));
+        final MockHttpServletResponse response = request1.andReturn().getResponse();
+        // then
+        Assertions.assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        Assertions.assertThat(response.getContentAsString())
+                .isEqualToIgnoringCase("{\"id\":null,\"basketId\":" + locationId + ",\"productId\":" + productId1 + ",\"quantity\":2}");
     }
 
     private BasketDto createBasketDto() {
