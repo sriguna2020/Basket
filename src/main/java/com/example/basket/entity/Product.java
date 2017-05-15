@@ -1,19 +1,19 @@
 package com.example.basket.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Basic(optional = false)
-    @Column(name = "id",unique=true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false)
     private Long id;
 
     private String name;
 
-    // todo: bigdecimal
-    private Long price;
+    private BigDecimal price;
 
     public Product() {
         // hibernate
@@ -35,11 +35,11 @@ public class Product {
         this.name = name;
     }
 
-    public Long getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 }

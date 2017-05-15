@@ -5,7 +5,7 @@ import java.util.List;
 public class BasketDto {
     Long id;
     Long userId;
-    List<Long> basketPositionsIds;
+    List<BasketPositionDto> basketPositions;
 
     public BasketDto() {
     }
@@ -26,11 +26,11 @@ public class BasketDto {
         this.userId = userId;
     }
 
-    public List<Long> getBasketPositionsIds() {
-        return basketPositionsIds;
+    public List<BasketPositionDto> getBasketPositions() {
+        return basketPositions;
     }
 
-    public void setBasketPositionsIds(List<Long> basketPositionsIds) {
-        this.basketPositionsIds = basketPositionsIds;
+    public void setBasketPositions(List<BasketPositionDto> basketPositions) {
+        this.basketPositions = basketPositions;
     }
 }

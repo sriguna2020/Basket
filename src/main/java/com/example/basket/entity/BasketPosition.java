@@ -1,15 +1,14 @@
 package com.example.basket.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class BasketPosition {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Basic(optional = false)
+    @Column(name = "ID", unique = true, nullable = false)
     Long id;
 
     Long basketId;

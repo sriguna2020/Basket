@@ -1,17 +1,14 @@
 package com.example.basket.model;
 
-import com.example.basket.entity.BasketPosition;
-
-import java.util.List;
+import java.math.BigDecimal;
 
 public class ProductDto {
     private Long id;
     private String name;
 
-    // todo: bigdecimal
-    private Long price;
+    private BigDecimal price;
 
-    public ProductDto(Long id, String name, Long price) {
+    public ProductDto(Long id, String name, BigDecimal price) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -33,11 +30,11 @@ public class ProductDto {
         this.name = name;
     }
 
-    public Long getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 }

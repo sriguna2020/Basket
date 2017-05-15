@@ -1,13 +1,13 @@
 package com.example.basket.model;
 
-public class BasketPostionDto {
+public class BasketPositionDto {
     Long id;
 
     Long basketId;
     Long productId;
     Integer quantity;
 
-    public BasketPostionDto() {
+    public BasketPositionDto() {
     }
 
     public Long getId() {
