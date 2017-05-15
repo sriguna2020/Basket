@@ -25,7 +25,6 @@ public class BasketPositionMapperTest {
         BasketPositionDto dto = new BasketPositionDto();
         dto.setQuantity(12);
         dto.setProductId(4L);
-        dto.setBasketId(1L);
         // when
         BasketPosition entity = basketPositionMapper.map(dto);
         // then
@@ -39,7 +38,6 @@ public class BasketPositionMapperTest {
         BasketPosition entity = new BasketPosition();
         entity.setQuantity(12);
         entity.setProductId(4L);
-        entity.setBasketId(1L);
         // when
         BasketPositionDto dto = basketPositionMapper.map(entity);
         // then

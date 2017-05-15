@@ -12,7 +12,7 @@ public class Basket {
     @Column(name = "ID", unique = true, nullable = false)
     private Long id;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "basketId")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "id")
     private List<BasketPosition> positions = new ArrayList<>();
 
     private Long userId;

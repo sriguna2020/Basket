@@ -61,14 +61,6 @@ public class BasketService {
     }
 
     public Basket createBasket(Basket entity) {
-        final Basket basket = basketRepository.save(entity);
-        for (BasketPosition basketPosition : entity.getPositions()) {
-            // todo - throw error if position have id
-            basketPosition.setBasketId(basket.getId());
-        }
-        entity.getPositions().forEach(basketPosition -> basketPosition.setBasketId(basket.getId()));
-        entity.getPositions().forEach(basketPosition -> basketPositionRepository.save(basketPosition));
-
         return basketRepository.save(entity);
     }
 
@@ -85,7 +77,6 @@ public class BasketService {
                 basketPositionRepository.save(originalPosition);
             }
         }
-        newBasketPositions.forEach(basketPosition -> basketPosition.setBasketId(original.getId()));
         original.getPositions().addAll(newBasketPositions);
 
         return basketRepository.save(original);

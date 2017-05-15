@@ -11,7 +11,6 @@ public class BasketPosition {
     @Column(name = "ID", unique = true, nullable = false)
     Long id;
 
-    Long basketId;
     Long productId;
     Integer quantity;
 
@@ -23,14 +22,6 @@ public class BasketPosition {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getBasketId() {
-        return basketId;
-    }
-
-    public void setBasketId(Long basketId) {
-        this.basketId = basketId;
     }
 
     public Long getProductId() {

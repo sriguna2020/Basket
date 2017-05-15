@@ -50,8 +50,6 @@ public class BasketMapperTest {
         Assertions.assertThat(entity.getId()).isEqualTo(dto.getId());
         Assertions.assertThat(entity.getUserId()).isEqualTo(dto.getUserId());
         Assertions.assertThat(entity.getPositions().size()).isEqualTo(1);
-        Assertions.assertThat(entity.getPositions().get(0).getBasketId())
-                .isEqualTo(dto.getBasketPositions().get(0).getBasketId());
         Assertions.assertThat(entity.getPositions().get(0).getId())
                 .isEqualTo(dto.getBasketPositions().get(0).getId());
         Assertions.assertThat(entity.getPositions().get(0).getProductId())
@@ -81,8 +79,6 @@ public class BasketMapperTest {
         Assertions.assertThat(entity.getId()).isEqualTo(dto.getId());
         Assertions.assertThat(entity.getUserId()).isEqualTo(dto.getUserId());
         Assertions.assertThat(entity.getPositions().size()).isEqualTo(1);
-        Assertions.assertThat(entity.getPositions().get(0).getBasketId())
-                .isEqualTo(dto.getBasketPositions().get(0).getBasketId());
         Assertions.assertThat(entity.getPositions().get(0).getId())
                 .isEqualTo(dto.getBasketPositions().get(0).getId());
         Assertions.assertThat(entity.getPositions().get(0).getProductId())

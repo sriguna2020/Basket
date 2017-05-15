@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 public class BasketPositionMapper {
     public BasketPosition map(@NotNull final BasketPositionDto dto) {
         final BasketPosition entity = new BasketPosition();
-        entity.setBasketId(dto.getBasketId());
         entity.setProductId(dto.getProductId());
         entity.setQuantity(dto.getQuantity());
 
@@ -19,7 +18,6 @@ public class BasketPositionMapper {
 
     public BasketPositionDto map(@NotNull final BasketPosition entity) {
         final BasketPositionDto dto = new BasketPositionDto();
-        dto.setBasketId(entity.getBasketId());
         dto.setProductId(entity.getProductId());
         dto.setQuantity(entity.getQuantity());
 

@@ -3,7 +3,6 @@ package com.example.basket.model;
 public class BasketPositionDto {
     Long id;
 
-    Long basketId;
     Long productId;
     Integer quantity;
 
@@ -16,14 +15,6 @@ public class BasketPositionDto {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getBasketId() {
-        return basketId;
-    }
-
-    public void setBasketId(Long basketId) {
-        this.basketId = basketId;
     }
 
     public Long getProductId() {

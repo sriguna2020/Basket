@@ -144,7 +144,7 @@ public class BasketControllerIT {
         // then
         Assertions.assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         Assertions.assertThat(response.getContentAsString())
-                .isEqualToIgnoringCase("{\"id\":null,\"basketId\":" + locationId + ",\"productId\":" + productId1 + ",\"quantity\":2}");
+                .isEqualToIgnoringCase("{\"id\":null,\"productId\":" + productId1 + ",\"quantity\":2}");
     }
 
     private BasketDto createBasketDto() {
