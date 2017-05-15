@@ -59,14 +59,4 @@ public class BasketServiceTest {
         // then
         Assertions.assertThat(value.doubleValue()).isEqualTo(797.12);
     }
-
-    @Test
-    public void createBasket() throws Exception {
-        // given
-        final Basket basket = Mockito.mock(Basket.class);
-        // when
-        basketService.createBasket(basket);
-        // then
-        Mockito.verify(basketRepository).save(basket);
-    }
 }
