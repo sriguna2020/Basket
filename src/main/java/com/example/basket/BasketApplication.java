@@ -39,7 +39,7 @@ public class BasketApplication {
                 .description("Spring REST Sample with Swagger")
                 .contact("Oskar Duwe")
                 .license("TBD")
-                .licenseUrl("https://github.com/")
+                .licenseUrl("https://github.com/Linuksiarz/Basket")
                 .version("0.0.1")
                 .build();
     }
