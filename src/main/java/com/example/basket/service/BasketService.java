@@ -10,10 +10,13 @@ import com.example.basket.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -60,7 +63,7 @@ public class BasketService {
     }
 
     public Basket createBasket(Basket entity) {
-        return basketRepository.save(entity);
+        return saveWithDuplicateRemoval(entity);
     }
 
     public Basket updateBasket(Basket updated) {
@@ -78,7 +81,7 @@ public class BasketService {
         }
         original.getPositions().addAll(newBasketPositions);
 
-        return basketRepository.save(original);
+        return saveWithDuplicateRemoval(original);
     }
 
     public BasketPosition findProduct(Long basketId, String phrase) throws NotFoundException {
@@ -94,5 +97,43 @@ public class BasketService {
         }
 
         return null;
+    }
+
+    public Basket saveWithDuplicateRemoval(Basket entity) {
+        if (!CollectionUtils.isEmpty(entity.getPositions())) {
+            List<BasketPosition> tempList = new ArrayList<>();
+            for (BasketPosition position : entity.getPositions()) {
+                if (listContainsBasketPosition(position, tempList)) {
+                    findBasketPositionAndUpdate(tempList, position);
+                } else {
+                    tempList.add(position);
+                }
+            }
+
+            if (tempList.size() != entity.getPositions().size()) {
+                entity.getPositions().clear();
+                entity.getPositions().addAll(tempList);
+            }
+        }
+
+        return basketRepository.save(entity);
+    }
+
+    private void findBasketPositionAndUpdate(List<BasketPosition> basketPositions, BasketPosition position) {
+        for (BasketPosition basketPosition : basketPositions) {
+            if (basketPosition.getProductId().equals(position.getProductId())) {
+                basketPosition.setQuantity(basketPosition.getQuantity() + position.getQuantity());
+            }
+        }
+    }
+
+    private boolean listContainsBasketPosition(BasketPosition basketPosition, List<BasketPosition> basketPositions) {
+        for (BasketPosition position : basketPositions) {
+            if (position.getProductId().equals(basketPosition.getProductId())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
